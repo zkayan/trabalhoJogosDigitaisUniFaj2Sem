@@ -50,6 +50,6 @@ public class AIZombiePatrol : IAIZombieState
 
     internal override void OnTriggerExit(Collider other)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

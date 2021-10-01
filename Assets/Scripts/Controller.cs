@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
     private static readonly int _speedID = Animator.StringToHash("Speed");
     private CharacterController _characterController = null;
     private Animator _animator = null;
+    private int _maxHp = 100;
+    private int _hp;
 
     private Vector2 _direction = Vector2.zero;
 
@@ -25,6 +28,7 @@ public class Controller : MonoBehaviour
    
     private void Awake()
     {
+        _hp = _maxHp;
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
 
@@ -74,6 +78,22 @@ public class Controller : MonoBehaviour
         _animator.SetFloat(_speedID, normalizedSpeed);
 
         
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if(_hp - 20 <= 0)
+            {
+                Debug.Log("Morreu");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            } 
+            else
+            {
+                _hp -= 20; 
+            }
+        }
     }
 
     private void FixedUpdate()

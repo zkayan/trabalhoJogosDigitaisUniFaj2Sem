@@ -38,7 +38,7 @@ public class AIZombieChaise : IAIZombieState
         {
             _aiState.agent.SetDestination(target.position);
         }
-            Debug.Log(_aiState.agent.destination);
+            //Debug.Log(_aiState.agent.destination);
         
 
         return _nextState;
