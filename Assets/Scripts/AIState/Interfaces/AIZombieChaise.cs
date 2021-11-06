@@ -13,6 +13,7 @@ public class AIZombieChaise : IAIZombieState
 
     public override void OnEnter()
     {
+        Debug.Log("Entrei no estado de perseguicao");
         _nextState = EZombieState.Chaise;
 
         target = GameObject.Find("RPGHeroHP").transform;

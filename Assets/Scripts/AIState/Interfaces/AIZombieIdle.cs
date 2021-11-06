@@ -17,10 +17,11 @@ public class AIZombieIdle : IAIZombieState
 
     public override void OnEnter()
     {
+        Debug.Log("Entrei no estado de parado");
         _nextState = EZombieState.Idle;
         _aiState.animator.SetFloat(idleId, 0.0f);
         _deltaTime = 0.0f;
-        _targetTime = 1000f;//Random.Range(5.0f, 10.0f);
+        _targetTime = 2.0f;//Random.Range(5.0f, 10.0f);
         _aiState.agent.speed = 0.0f;
     }
 

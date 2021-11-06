@@ -13,6 +13,7 @@ public class AIZombiePatrol : IAIZombieState
 
     public override void OnEnter()
     {
+        Debug.Log("Entrei no estado de patrulhamento");
         _nextState = EZombieState.Patrol;
         _aiState.agent.speed = _aiState.zombie.walkSpeed;
         _aiState.animator.SetFloat(patrolId, _aiState.agent.speed);
@@ -42,7 +43,7 @@ public class AIZombiePatrol : IAIZombieState
     public override EZombieState Update()
     {
         if (Vector3.Distance(_aiState.agent.destination, 
-            _aiState.zombie.transform.position) > 0.5f)
+            _aiState.zombie.transform.position) < 0.5f)
             return EZombieState.Idle;
 
         return _nextState;
