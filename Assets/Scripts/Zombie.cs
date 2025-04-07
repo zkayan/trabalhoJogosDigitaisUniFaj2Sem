@@ -56,7 +56,7 @@ public class Zombie : MonoBehaviour
 
         if (other.tag == "CollisionSphere" && Input.GetMouseButtonDown(0))
         {
-            takeDamage(25.0f);
+            takeDamage(10.0f);
         }
     }
 
@@ -70,13 +70,11 @@ public class Zombie : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Cheguei aqui");
         stateMachine.OnTriggerExit(other);
     }
 
     public void takeDamage(float damage)
     {
-        Debug.Log("cheguei aqui...");
 
         hitPoint -= damage;
         if (hitPoint <= 0)

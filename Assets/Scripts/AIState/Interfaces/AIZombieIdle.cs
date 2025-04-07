@@ -17,7 +17,6 @@ public class AIZombieIdle : IAIZombieState
 
     public override void OnEnter()
     {
-        Debug.Log("Entrei no estado de parado");
         _nextState = EZombieState.Idle;
         _aiState.animator.SetFloat(idleId, 0.0f);
         _deltaTime = 0.0f;
@@ -32,18 +31,16 @@ public class AIZombieIdle : IAIZombieState
 
     public override void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Entrou na area do sensor");
+        //Entered sensor area
 
         if (other.gameObject.tag == "Player")
         {
-            //Debug.Log("Foi o jogador");
             Vector3 forward = _aiState.zombie.transform.TransformDirection(Vector3.forward);
             Vector3 toOther = other.gameObject.transform.position - _aiState.zombie.transform.position;
 
             if (Vector3.Dot(forward, toOther) > 0.2f)
             {
-                //Debug.Log("Pela frente");
-                _nextState = EZombieState.Chaise;
+                _nextState = EZombieState.Chase;
             }    
         }
     }

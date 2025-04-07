@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour
 {
-    public bool botaoSairVisivel = false;
-    public GameObject botaoSair;
+    public bool quitGameButtonVisible = false;
+    public GameObject quitGameButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        botaoSair.SetActive(false);
+        quitGameButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,14 +26,20 @@ public class PauseMenuScript : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
             Cursor.visible = !Cursor.visible;
-            botaoSair.SetActive(!botaoSair.activeSelf);
-            botaoSairVisivel = !botaoSairVisivel;
+            quitGameButton.SetActive(!quitGameButton.activeSelf);
+            quitGameButtonVisible = !quitGameButtonVisible;
         }
+
     }
 
-    public void quit()
+    public void Quit()
     {
         Application.Quit();
+    }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

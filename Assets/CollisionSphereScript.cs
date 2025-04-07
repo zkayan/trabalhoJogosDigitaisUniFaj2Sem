@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollisionSphereScript : MonoBehaviour
 {
-    GameObject objectPosition = null;
+    public GameObject objectPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +14,7 @@ public class CollisionSphereScript : MonoBehaviour
 
     private void Awake()
     {
-        objectPosition = GameObject.Find("CollisionSpherePos");
+        objectPosition = GameObject.Find("PlayerCollisionSphere");
     }
 
     // Update is called once per frame

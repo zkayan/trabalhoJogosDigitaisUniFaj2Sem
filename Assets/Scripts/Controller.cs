@@ -8,8 +8,9 @@ public class Controller : MonoBehaviour
     private static readonly int _speedID = Animator.StringToHash("Speed");
     private CharacterController _characterController = null;
     private Animator _animator = null;
-    private int _maxHp = 100;
-    private int _hp;
+    private int _maxHp = 500;
+    public int _hp;
+    public Lifebar lifebar;
 
     private Vector2 _direction = Vector2.zero;
 
@@ -25,7 +26,12 @@ public class Controller : MonoBehaviour
     public AudioSource audioSource;
 
     public CharacterController characterController = null;
-   
+
+    public GameObject end;
+
+
+    private bool _isPlayerDefending = false;
+
     private void Awake()
     {
         _hp = _maxHp;
@@ -40,16 +46,47 @@ public class Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+    }
+
+    public void MakePlayerTakeDamage(int damage)
+    {
+        if (_hp - damage <= 0 && !(Input.GetMouseButton(1)))
+        {
+            lifebar.UpdateLifebar(0);
+            Debug.Log("Died");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            _hp -= damage;
+            lifebar.UpdateLifebar(_hp);
+        }
+    }
+
+    public int CurrentHp()
+    {
+        return _hp;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetMouseButtonDown(1)) _isPlayerDefending = true;
+        if (Input.GetMouseButtonUp(1)) _isPlayerDefending = false;
+
+        if (Vector3.Distance(gameObject.transform.position,
+            end.transform.position) < 2.0f)
+        {
+            SceneManager.LoadScene(2);
+        }
+
         if (Input.GetKeyDown("space"))
         {
             GetComponent<AudioSource>().PlayOneShot(jump1, 0.25f);
         }
+
         if (Input.GetMouseButtonDown(0) && !Input.GetMouseButton(1))
         {
             GetComponent<AudioSource>().PlayOneShot(swordAttack1, 0.3f);
@@ -82,17 +119,24 @@ public class Controller : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if(_hp - 20 <= 0)
+            if (!_isPlayerDefending)
             {
-                Debug.Log("Morreu");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            } 
-            else
-            {
-                _hp -= 20; 
+                if (_hp - 20 <= 0)
+                {
+                    lifebar.UpdateLifebar(0);
+                    Debug.Log("Died");
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+                else
+                {
+                    _hp -= 20;
+                    lifebar.UpdateLifebar(_hp);
+                }
             }
+            
         }
     }
 
