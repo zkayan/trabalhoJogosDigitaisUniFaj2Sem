@@ -13,7 +13,6 @@ public class AIZombiePatrol : IAIZombieState
 
     public override void OnEnter()
     {
-        Debug.Log("Entrei no estado de patrulhamento");
         _nextState = EZombieState.Patrol;
         _aiState.agent.speed = _aiState.zombie.walkSpeed;
         _aiState.animator.SetFloat(patrolId, _aiState.agent.speed);
@@ -23,7 +22,7 @@ public class AIZombiePatrol : IAIZombieState
 
     public override void OnExit()
     {
-        
+
     }
 
     public override void OnTriggerEnter(Collider other)
@@ -35,7 +34,7 @@ public class AIZombiePatrol : IAIZombieState
 
             if (Vector3.Dot(forward, toOther) < 0.2f)
             {
-                _nextState = EZombieState.Chaise;
+                _nextState = EZombieState.Chase;
             }
         }
     }

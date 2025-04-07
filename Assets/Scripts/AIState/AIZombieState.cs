@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum EZombieState { Idle, Patrol, Chaise }
+public enum EZombieState { Idle, Patrol, Chase }
 
 [System.Serializable]
 public class AIZombieState 
@@ -25,7 +25,7 @@ public class AIZombieState
         agent = zombie.agent;
         this.zombie = zombie;
         _states = new IAIZombieState[]
-        { new AIZombieIdle(this), new AIZombiePatrol(this), new AIZombieChaise(this) };
+        { new AIZombieIdle(this), new AIZombiePatrol(this), new AIZombieChase(this) };
     }
 
     public void Initialize()
